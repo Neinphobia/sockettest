@@ -40,14 +40,28 @@ app.use(express.static("public"));
 io.on("connection", (socket) => {
   // Step 2: Update the List on Connection and Disconnection
   const sillyName = sillyNames[Math.floor(Math.random() * sillyNames.length)];
-  const rand  = Math.floor(Math.random() * 2024);
-  connectedUsers.push({ id: socket.id, name: sillyName +" "+rand });
+  const rand = Math.floor(Math.random() * 2024);
+  connectedUsers.push({ id: socket.id, name: sillyName + " " + rand });
 
-  console.log("a user connected: ", sillyName +" "+rand);
+  console.log("a user connected: ", sillyName + " " + rand);
 
   socket.on("chat message", (msg) => {
     const user = connectedUsers.find((u) => u.id === socket.id);
     io.emit("chat message", { msg, sillyName: user.name });
+  });
+
+  socket.on("change name", (data) => {
+    // Verify that the ID sent with the request matches the ID of the client making the request
+    if (data.id === socket.id) {
+      const user = connectedUsers.find((u) => u.id === data.id);
+      if (user) {
+        user.name = data.newName;
+        // Emit the updated users list to all clients
+        io.emit("users list", connectedUsers);
+      }
+    } else {
+      console.log("Unauthorized name change attempt");
+    }
   });
 
   socket.on("disconnect", () => {

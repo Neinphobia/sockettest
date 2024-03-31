@@ -25,10 +25,10 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (input.value) {
-        let val = input.value 
-        input.value = "";
-        socket.emit("chat message", val);
-        val="";
+      let val = input.value;
+      input.value = "";
+      socket.emit("chat message", val);
+      val = "";
     }
   });
 
@@ -62,4 +62,20 @@ document.addEventListener("DOMContentLoaded", () => {
       usersList.appendChild(userItem);
     });
   });
+
+  // Assuming each user item is created like this:
+ 
+
+  // Make the user's name clickable
+  usersList.addEventListener("click", () => {
+    console.log("clickk")
+    const newName = prompt("Enter your new name:");
+    if (newName) {
+      // Send a request to the server to update the user's name
+      // Include the user's ID along with the new name
+      socket.emit("change name", { id: socket.id, newName });
+    }
+  });
+
+
 });

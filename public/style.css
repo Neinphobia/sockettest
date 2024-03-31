@@ -13,3 +13,10 @@
     height: 80vh; /* Adjust as needed */
     
 }
+#users-list:hover{
+    background-color: rgb(203, 203, 203);
+}
+#users-list{
+    cursor: pointer;
+
+}
