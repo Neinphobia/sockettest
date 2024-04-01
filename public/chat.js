@@ -8,13 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const messagesBox = document.querySelector(".messages-box");
   const inputField = document.querySelector(".fixed-bottom");
   // Request permission for notifications
-  Notification.requestPermission().then(function (permission) {
-    if (permission === "granted") {
-      console.log("Notification permission granted.");
-    } else {
-      console.error("Unable to get permission to notify.");
-    }
-  });
+  // Notification.requestPermission().then(function (permission) {
+  //   if (permission === "granted") {
+  //     console.log("Notification permission granted.");
+  //   } else {
+  //     console.error("Unable to get permission to notify.");
+  //   }
+  // });
   window.addEventListener("resize", function () {
     // Check if the keyboard is open
     if (window.innerHeight < window.screen.height) {
@@ -72,9 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(resetTitle, 5000);
 
     // Create a new notification
-    new Notification("New Message", {
-      body: data.msg,
-    });
+   
   });
 
   socket.on("users list", (users) => {
