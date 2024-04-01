@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   socket.on("chat message", (data) => {
     const item = document.createElement("li");
     item.classList.add("list-group-item"); // Add Bootstrap class for styling
+    item.classList.add("mt-2");
     item.textContent = data.sillyName + " : " + data.msg;
 
     // Determine if the message is even or odd

@@ -1,22 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
 .message-even {
-    background-color: #f8f9fa; /* Light gray */
+  background-color: #f8f9fa; /* Light gray */
 }
 
 .message-odd {
-    background-color: #e9ecef; /* Slightly darker gray */
+  background-color: #e9ecef; /* Slightly darker gray */
 }
 .messages-box {
-    padding-bottom: 100px; /* Adjust this value based on the height of your input field */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    height: 80vh; /* Adjust as needed */
+  padding-bottom: 100px; /* Adjust this value based on the height of your input field */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 80vh; /* Adjust as needed */
+}
+#users-list:hover {
+  background-color: rgb(203, 203, 203);
+}
+#users-list {
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .form-control {
+    font-size: 14px; /* Adjust as needed */
+    padding: 10px 15px; /* Adjust padding for better usability */
+  }
+  body {
+    font-size: 12px;
+    background-color: rgb(251, 237, 220);
     
-}
-#users-list:hover{
-    background-color: rgb(203, 203, 203);
-}
-#users-list{
-    cursor: pointer;
-
+  }
+  h5 {
+    font-size: 15px;
+  }
+  .messages-box{
+    padding-bottom: 25px;
+  }
 }
