@@ -7,7 +7,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const userColors = ["#FF5733", "#33FF57", "#3357FF", "#FF3399", "#99FF33"];
   const messagesBox = document.querySelector(".messages-box");
   const inputField = document.querySelector(".fixed-bottom");
-
+  // Request permission for notifications
+  Notification.requestPermission().then(function (permission) {
+    if (permission === "granted") {
+      console.log("Notification permission granted.");
+    } else {
+      console.error("Unable to get permission to notify.");
+    }
+  });
   window.addEventListener("resize", function () {
     // Check if the keyboard is open
     if (window.innerHeight < window.screen.height) {
@@ -20,6 +27,17 @@ document.addEventListener("DOMContentLoaded", () => {
       messagesBox.style.height = "80vh"; // Reset to the original height
     }
   });
+
+  // Function to reset the title
+  function resetTitle() {
+    document.title = "Chat & Furkan Gönülal"; // Replace "Original Title" with your original tab title
+  }
+
+  // Reset the title after 5 seconds
+  setTimeout(resetTitle, 5000);
+
+  // Reset the title when the user clicks on the tab
+  window.addEventListener("focus", resetTitle);
   messagesBox.scrollTop = messagesBox.scrollHeight;
 
   form.addEventListener("submit", (e) => {
@@ -49,6 +67,14 @@ document.addEventListener("DOMContentLoaded", () => {
     messages.appendChild(item);
     // Scroll to the bottom of the messages box
     messagesBox.scrollTop = messagesBox.scrollHeight;
+
+    document.title = "New message!";
+    setTimeout(resetTitle, 5000);
+
+    // Create a new notification
+    new Notification("New Message", {
+      body: data.msg,
+    });
   });
 
   socket.on("users list", (users) => {
@@ -65,11 +91,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Assuming each user item is created like this:
- 
 
   // Make the user's name clickable
   usersList.addEventListener("click", () => {
-    console.log("clickk")
+    console.log("clickk");
     const newName = prompt("Enter your new name:");
     if (newName) {
       // Send a request to the server to update the user's name
@@ -77,6 +102,4 @@ document.addEventListener("DOMContentLoaded", () => {
       socket.emit("change name", { id: socket.id, newName });
     }
   });
-
-
 });
